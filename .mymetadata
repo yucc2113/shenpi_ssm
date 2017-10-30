@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="shenpi_ssm"
+  id="myeclipse.1481710092427"
+  context-root="/shenpi_ssm"
+  j2ee-spec="6.0"
+  archive="shenpi_ssm.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+

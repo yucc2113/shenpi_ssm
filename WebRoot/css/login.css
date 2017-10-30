@@ -1,0 +1,41 @@
+/* common stype */
+* {margin:0; padding:0; }
+html, body {margin:0; padding:0; font-family:"宋体"; font-size:12px; line-height:20px; text-align:center; background:url(../images/bg_login01.jpg) left top no-repeat;}
+a {text-decoration:none; color:#000;}
+a:hover, a:focus {text-decoration:underline; color:#175cb7;}
+table {border-collapse:collapse; border:0;}
+table, div {border-collapse:collapse; font-size:12px; line-height:20px;}
+form, ul, ol, dl, table, div, h1, h2, h3, h4, h5 { margin:0; padding:0; }
+select, textarea { vertical-align:middle }
+strong, b { font-weight:bold; }
+ul, li, ol { list-style-type : none; }
+img, fieldset { border:0 }
+select, input, li img { vertical-align:middle }
+img, input { vertical-align:middle }
+legend, hr, caption { display:none; }
+.fl {float:left!important; }
+.fr {float:right!important; }
+.cl {clear:both!important; }
+.al {text-align:left!important; }
+.ar {text-align:right!important; }
+.ac {text-align:center!important; }
+#skipToContent {display:none!important; }
+.bor_none {border:none !important; }
+.bg_none{background:none!important}
+/* common stype */
+.login_top{background:url(../images/bg_login02.png) top repeat-x; padding:0 20px; height:91px; text-align:right;}
+.login_top span{background:url(../images/bg_login03.png) left top no-repeat; width:160px; height:85px; display:block; float:left; text-indent:-5000px; text-align:left;}
+.login_top p{font-family:"微软雅黑", "黑体", "宋体"; font-size:15px; display:block; padding-top:35px;}
+
+.login_text{background:url(../images/bg_login05.png) left top no-repeat; width:510px; height:220px; text-indent:-5000px; float:left; margin:30px 0 0 20px; display:inline;}
+
+.login_a{background:url(../images/bg_login04.png) left top no-repeat; width:803px; height:262px; position:absolute; left:50%; top:50%; margin-left:-402px; margin-top:-131px;}
+.login_a .bg_p{background:url(../images/bg_login06.png) left top no-repeat; width:223px; height:25px;}
+.login_a .bg_p span{ display:block; padding:2px 0 0 10px; float:left; font-family:"微软雅黑", "黑体", "宋体";}
+.login_a table{width:230px; overflow:hidden; margin:60px auto 0 auto; float:left;}
+.login_a table td{ padding:10px 0 15px 0; font-size:13px; text-align:left;}
+.login_a table .text{ width:120px; height:18px; float:left; margin-top:3px; border:1px solid #fff;}
+.login_a table .btn{ width:185px; height:39px; background:url(../images/bg_login07.png) left top no-repeat; display:block;}
+.login_a table .btn:hover{background:url(../images/bg_login07.png) left bottom no-repeat; display:block;}
+
+.login_foot{ color:#eee; text-align:center; background:url(../images/bg_login08.png) top repeat-x; padding:30px 0; height:21px; line-height:21px; position:absolute; bottom:0; left:0; width:100%;}

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ccgj.database.custom.mapper.UserModuleCustomMapper" >
+    <select id="searchModuleByRoleIdAndParentId" parameterType="java.lang.Integer" resultType="com.ccgj.database.beans.Module">
+        select module.* from module,role_module where module.id=role_module.moduleid and roleid=#{0} and parentid=#{1} 
+    </select>
+  
+</mapper>

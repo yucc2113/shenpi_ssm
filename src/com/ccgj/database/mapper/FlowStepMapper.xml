@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ccgj.database.mapper.FlowStepMapper" >
+  <resultMap id="BaseResultMap" type="com.ccgj.database.beans.FlowStep" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="flow_id" property="flowId" jdbcType="INTEGER" />
+    <result column="step_no" property="stepNo" jdbcType="TINYINT" />
+    <result column="step_name" property="stepName" jdbcType="VARCHAR" />
+    <result column="deal_user" property="dealUser" jdbcType="VARCHAR" />
+    <result column="deal_role" property="dealRole" jdbcType="INTEGER" />
+    <result column="deal_position" property="dealPosition" jdbcType="VARCHAR" />
+    <result column="last_id" property="lastId" jdbcType="INTEGER" />
+    <result column="next_id" property="nextId" jdbcType="INTEGER" />
+    <result column="step_type" property="stepType" jdbcType="INTEGER" />
+    <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="libusername" property="libusername" jdbcType="VARCHAR" />
+    <result column="flag" property="flag" jdbcType="INTEGER" />
+    <result column="leixing" property="leixing" jdbcType="VARCHAR" />
+    <result column="conditions" property="conditions" jdbcType="VARCHAR" />
+    <result column="conditionMsg" property="conditionmsg" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, flow_id, step_no, step_name, deal_user, deal_role, deal_position, last_id, next_id, 
+    step_type, add_time, update_time, libusername, flag, leixing, conditions, conditionMsg
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ccgj.database.beans.FlowStepExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from flow_step
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from flow_step
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from flow_step
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ccgj.database.beans.FlowStepExample" >
+    delete from flow_step
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ccgj.database.beans.FlowStep" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into flow_step (flow_id, step_no, step_name, 
+      deal_user, deal_role, deal_position, 
+      last_id, next_id, step_type, 
+      add_time, update_time, libusername, 
+      flag, leixing, conditions, 
+      conditionMsg)
+    values (#{flowId,jdbcType=INTEGER}, #{stepNo,jdbcType=TINYINT}, #{stepName,jdbcType=VARCHAR}, 
+      #{dealUser,jdbcType=VARCHAR}, #{dealRole,jdbcType=INTEGER}, #{dealPosition,jdbcType=VARCHAR}, 
+      #{lastId,jdbcType=INTEGER}, #{nextId,jdbcType=INTEGER}, #{stepType,jdbcType=INTEGER}, 
+      #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{libusername,jdbcType=VARCHAR}, 
+      #{flag,jdbcType=INTEGER}, #{leixing,jdbcType=VARCHAR}, #{conditions,jdbcType=VARCHAR}, 
+      #{conditionmsg,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ccgj.database.beans.FlowStep" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into flow_step
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="flowId != null" >
+        flow_id,
+      </if>
+      <if test="stepNo != null" >
+        step_no,
+      </if>
+      <if test="stepName != null" >
+        step_name,
+      </if>
+      <if test="dealUser != null" >
+        deal_user,
+      </if>
+      <if test="dealRole != null" >
+        deal_role,
+      </if>
+      <if test="dealPosition != null" >
+        deal_position,
+      </if>
+      <if test="lastId != null" >
+        last_id,
+      </if>
+      <if test="nextId != null" >
+        next_id,
+      </if>
+      <if test="stepType != null" >
+        step_type,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="libusername != null" >
+        libusername,
+      </if>
+      <if test="flag != null" >
+        flag,
+      </if>
+      <if test="leixing != null" >
+        leixing,
+      </if>
+      <if test="conditions != null" >
+        conditions,
+      </if>
+      <if test="conditionmsg != null" >
+        conditionMsg,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="flowId != null" >
+        #{flowId,jdbcType=INTEGER},
+      </if>
+      <if test="stepNo != null" >
+        #{stepNo,jdbcType=TINYINT},
+      </if>
+      <if test="stepName != null" >
+        #{stepName,jdbcType=VARCHAR},
+      </if>
+      <if test="dealUser != null" >
+        #{dealUser,jdbcType=VARCHAR},
+      </if>
+      <if test="dealRole != null" >
+        #{dealRole,jdbcType=INTEGER},
+      </if>
+      <if test="dealPosition != null" >
+        #{dealPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="lastId != null" >
+        #{lastId,jdbcType=INTEGER},
+      </if>
+      <if test="nextId != null" >
+        #{nextId,jdbcType=INTEGER},
+      </if>
+      <if test="stepType != null" >
+        #{stepType,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="libusername != null" >
+        #{libusername,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null" >
+        #{flag,jdbcType=INTEGER},
+      </if>
+      <if test="leixing != null" >
+        #{leixing,jdbcType=VARCHAR},
+      </if>
+      <if test="conditions != null" >
+        #{conditions,jdbcType=VARCHAR},
+      </if>
+      <if test="conditionmsg != null" >
+        #{conditionmsg,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ccgj.database.beans.FlowStepExample" resultType="java.lang.Integer" >
+    select count(*) from flow_step
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update flow_step
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.flowId != null" >
+        flow_id = #{record.flowId,jdbcType=INTEGER},
+      </if>
+      <if test="record.stepNo != null" >
+        step_no = #{record.stepNo,jdbcType=TINYINT},
+      </if>
+      <if test="record.stepName != null" >
+        step_name = #{record.stepName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dealUser != null" >
+        deal_user = #{record.dealUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dealRole != null" >
+        deal_role = #{record.dealRole,jdbcType=INTEGER},
+      </if>
+      <if test="record.dealPosition != null" >
+        deal_position = #{record.dealPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastId != null" >
+        last_id = #{record.lastId,jdbcType=INTEGER},
+      </if>
+      <if test="record.nextId != null" >
+        next_id = #{record.nextId,jdbcType=INTEGER},
+      </if>
+      <if test="record.stepType != null" >
+        step_type = #{record.stepType,jdbcType=INTEGER},
+      </if>
+      <if test="record.addTime != null" >
+        add_time = #{record.addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.libusername != null" >
+        libusername = #{record.libusername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.flag != null" >
+        flag = #{record.flag,jdbcType=INTEGER},
+      </if>
+      <if test="record.leixing != null" >
+        leixing = #{record.leixing,jdbcType=VARCHAR},
+      </if>
+      <if test="record.conditions != null" >
+        conditions = #{record.conditions,jdbcType=VARCHAR},
+      </if>
+      <if test="record.conditionmsg != null" >
+        conditionMsg = #{record.conditionmsg,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update flow_step
+    set id = #{record.id,jdbcType=INTEGER},
+      flow_id = #{record.flowId,jdbcType=INTEGER},
+      step_no = #{record.stepNo,jdbcType=TINYINT},
+      step_name = #{record.stepName,jdbcType=VARCHAR},
+      deal_user = #{record.dealUser,jdbcType=VARCHAR},
+      deal_role = #{record.dealRole,jdbcType=INTEGER},
+      deal_position = #{record.dealPosition,jdbcType=VARCHAR},
+      last_id = #{record.lastId,jdbcType=INTEGER},
+      next_id = #{record.nextId,jdbcType=INTEGER},
+      step_type = #{record.stepType,jdbcType=INTEGER},
+      add_time = #{record.addTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      libusername = #{record.libusername,jdbcType=VARCHAR},
+      flag = #{record.flag,jdbcType=INTEGER},
+      leixing = #{record.leixing,jdbcType=VARCHAR},
+      conditions = #{record.conditions,jdbcType=VARCHAR},
+      conditionMsg = #{record.conditionmsg,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ccgj.database.beans.FlowStep" >
+    update flow_step
+    <set >
+      <if test="flowId != null" >
+        flow_id = #{flowId,jdbcType=INTEGER},
+      </if>
+      <if test="stepNo != null" >
+        step_no = #{stepNo,jdbcType=TINYINT},
+      </if>
+      <if test="stepName != null" >
+        step_name = #{stepName,jdbcType=VARCHAR},
+      </if>
+      <if test="dealUser != null" >
+        deal_user = #{dealUser,jdbcType=VARCHAR},
+      </if>
+      <if test="dealRole != null" >
+        deal_role = #{dealRole,jdbcType=INTEGER},
+      </if>
+      <if test="dealPosition != null" >
+        deal_position = #{dealPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="lastId != null" >
+        last_id = #{lastId,jdbcType=INTEGER},
+      </if>
+      <if test="nextId != null" >
+        next_id = #{nextId,jdbcType=INTEGER},
+      </if>
+      <if test="stepType != null" >
+        step_type = #{stepType,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null" >
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="libusername != null" >
+        libusername = #{libusername,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null" >
+        flag = #{flag,jdbcType=INTEGER},
+      </if>
+      <if test="leixing != null" >
+        leixing = #{leixing,jdbcType=VARCHAR},
+      </if>
+      <if test="conditions != null" >
+        conditions = #{conditions,jdbcType=VARCHAR},
+      </if>
+      <if test="conditionmsg != null" >
+        conditionMsg = #{conditionmsg,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ccgj.database.beans.FlowStep" >
+    update flow_step
+    set flow_id = #{flowId,jdbcType=INTEGER},
+      step_no = #{stepNo,jdbcType=TINYINT},
+      step_name = #{stepName,jdbcType=VARCHAR},
+      deal_user = #{dealUser,jdbcType=VARCHAR},
+      deal_role = #{dealRole,jdbcType=INTEGER},
+      deal_position = #{dealPosition,jdbcType=VARCHAR},
+      last_id = #{lastId,jdbcType=INTEGER},
+      next_id = #{nextId,jdbcType=INTEGER},
+      step_type = #{stepType,jdbcType=INTEGER},
+      add_time = #{addTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      libusername = #{libusername,jdbcType=VARCHAR},
+      flag = #{flag,jdbcType=INTEGER},
+      leixing = #{leixing,jdbcType=VARCHAR},
+      conditions = #{conditions,jdbcType=VARCHAR},
+      conditionMsg = #{conditionmsg,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/projects/!svn/ver/287/AccountNew/src/com/base/common/struts
+END
+CommonPage.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/projects/!svn/ver/3/AccountNew/src/com/base/common/struts/CommonPage.java
+END
+CommonAction.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/projects/!svn/ver/142/AccountNew/src/com/base/common/struts/CommonAction.java
+END
+AuthorityInterceptor.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/projects/!svn/ver/287/AccountNew/src/com/base/common/struts/AuthorityInterceptor.java
+END

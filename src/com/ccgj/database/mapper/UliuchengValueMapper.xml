@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ccgj.database.mapper.UliuchengValueMapper" >
+  <resultMap id="BaseResultMap" type="com.ccgj.database.beans.UliuchengValue" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="baiodanId" property="baiodanid" jdbcType="INTEGER" />
+    <result column="dataElement" property="dataelement" jdbcType="VARCHAR" />
+    <result column="dataElementtype" property="dataelementtype" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, baiodanId, dataElement, dataElementtype
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ccgj.database.beans.UliuchengValueExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from uliucheng_value
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from uliucheng_value
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from uliucheng_value
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ccgj.database.beans.UliuchengValueExample" >
+    delete from uliucheng_value
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ccgj.database.beans.UliuchengValue" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into uliucheng_value (baiodanId, dataElement, dataElementtype
+      )
+    values (#{baiodanid,jdbcType=INTEGER}, #{dataelement,jdbcType=VARCHAR}, #{dataelementtype,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ccgj.database.beans.UliuchengValue" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into uliucheng_value
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="baiodanid != null" >
+        baiodanId,
+      </if>
+      <if test="dataelement != null" >
+        dataElement,
+      </if>
+      <if test="dataelementtype != null" >
+        dataElementtype,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="baiodanid != null" >
+        #{baiodanid,jdbcType=INTEGER},
+      </if>
+      <if test="dataelement != null" >
+        #{dataelement,jdbcType=VARCHAR},
+      </if>
+      <if test="dataelementtype != null" >
+        #{dataelementtype,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ccgj.database.beans.UliuchengValueExample" resultType="java.lang.Integer" >
+    select count(*) from uliucheng_value
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update uliucheng_value
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.baiodanid != null" >
+        baiodanId = #{record.baiodanid,jdbcType=INTEGER},
+      </if>
+      <if test="record.dataelement != null" >
+        dataElement = #{record.dataelement,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dataelementtype != null" >
+        dataElementtype = #{record.dataelementtype,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update uliucheng_value
+    set id = #{record.id,jdbcType=INTEGER},
+      baiodanId = #{record.baiodanid,jdbcType=INTEGER},
+      dataElement = #{record.dataelement,jdbcType=VARCHAR},
+      dataElementtype = #{record.dataelementtype,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ccgj.database.beans.UliuchengValue" >
+    update uliucheng_value
+    <set >
+      <if test="baiodanid != null" >
+        baiodanId = #{baiodanid,jdbcType=INTEGER},
+      </if>
+      <if test="dataelement != null" >
+        dataElement = #{dataelement,jdbcType=VARCHAR},
+      </if>
+      <if test="dataelementtype != null" >
+        dataElementtype = #{dataelementtype,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ccgj.database.beans.UliuchengValue" >
+    update uliucheng_value
+    set baiodanId = #{baiodanid,jdbcType=INTEGER},
+      dataElement = #{dataelement,jdbcType=VARCHAR},
+      dataElementtype = #{dataelementtype,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

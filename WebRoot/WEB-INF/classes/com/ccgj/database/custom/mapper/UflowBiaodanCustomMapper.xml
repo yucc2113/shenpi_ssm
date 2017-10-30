@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ccgj.database.custom.mapper.UflowBiaodanCustomMapper" >
+   
+    <resultMap id="BaseFlowWorkResultMap" type="com.ccgj.database.beans.UflowWork" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="flow_id" property="flowId" jdbcType="INTEGER" />
+    <result column="step_id" property="stepId" jdbcType="INTEGER" />
+    <result column="step_no" property="stepNo" jdbcType="TINYINT" />
+    <result column="work_id" property="workId" jdbcType="INTEGER" />
+    <result column="deal_user" property="dealUser" jdbcType="INTEGER" />
+    <result column="deal_idea" property="dealIdea" jdbcType="VARCHAR" />
+    <result column="deal_date" property="dealDate" jdbcType="TIMESTAMP" />
+    <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="deal_name" property="dealName" jdbcType="VARCHAR" />
+    <result column="shenpileixing" property="shenpileixing" jdbcType="INTEGER" />
+    <result column="deal_role" property="dealRole" jdbcType="INTEGER" />
+    <result column="deal_position" property="dealPosition" jdbcType="INTEGER" />
+  </resultMap>
+   
+   <select id="searchByUser" parameterType="com.ccgj.database.beans.Users" resultType="com.ccgj.database.beans.UflowBiaodan">
+         select uflow_biaodan.* from uflow_biaodan,uflow_work where uflow_biaodan.id=uflow_work.work_id
+        and  (uflow_work.deal_user=#{id} or uflow_work.deal_role= #{roleid} or uflow_work.deal_position= #{positionid})
+        and uflow_work.status=1   
+        
+    </select>
+    
+      <select id="searchByNameAndDateAndUser"  resultType="com.ccgj.database.beans.UflowBiaodan">
+         select distinct uflow_biaodan.* from uflow_biaodan ,uflow_work where uflow_biaodan.id=uflow_work.work_id
+          and  (uflow_work.deal_user=#{user.id} or uflow_work.deal_role= #{user.roleid} or uflow_work.deal_position= #{user.positionid} or uflow_biaodan.createUser=#{user.id})
+        <if test="name"> and uflow_biaodan.mingchen like #{name,jdbcType=VARCHAR}</if>
+        <if test="startDate!=null and endDate!=null">
+              and uflow_biaodan.createdate between #{startDate} and #{endDate}
+        </if>
+        <if test="startDate!=null and endDate==null">  and uflow_biaodan.createdate &gt; #{startDate}</if>
+        <if test="startDate==null and endDate!=null">  and uflow_biaodan.createdate &lt; #{endDate}</if>
+       
+        
+    </select>
+    
+     <select id="searchWorkByFlowIdAndWorkIdAndState"  resultMap="BaseFlowWorkResultMap">
+         select uflow_work.* from uflow_biaodan,uflow_work where  uflow_biaodan.id=uflow_work.work_id
+         and uflow_work.work_id=#{workId} and uflow_work.flow_id=#{flowId} and uflow_work.status>1; 
+    </select>
+    
+</mapper>

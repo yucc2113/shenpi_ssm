@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/projects/!svn/ver/238/AccountNew/src/com/base/common/util
+END
+StringFormat.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/projects/!svn/ver/3/AccountNew/src/com/base/common/util/StringFormat.java
+END
+StringCode.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/projects/!svn/ver/3/AccountNew/src/com/base/common/util/StringCode.java
+END
+SystemUtil.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/projects/!svn/ver/238/AccountNew/src/com/base/common/util/SystemUtil.java
+END
+StringUtil.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/projects/!svn/ver/160/AccountNew/src/com/base/common/util/StringUtil.java
+END
+ConstIF.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/projects/!svn/ver/3/AccountNew/src/com/base/common/util/ConstIF.java
+END
+Md5.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/projects/!svn/ver/3/AccountNew/src/com/base/common/util/Md5.java
+END
+MD5Tools.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/projects/!svn/ver/3/AccountNew/src/com/base/common/util/MD5Tools.java
+END
+DateFormat.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/projects/!svn/ver/3/AccountNew/src/com/base/common/util/DateFormat.java
+END
+FileUtil.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/projects/!svn/ver/3/AccountNew/src/com/base/common/util/FileUtil.java
+END

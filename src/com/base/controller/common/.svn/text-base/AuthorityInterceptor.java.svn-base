@@ -1,0 +1,119 @@
+package com.base.common.struts;
+
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import org.apache.struts2.StrutsStatics;
+import com.base.common.util.ConstIF;
+import com.base.common.util.SystemUtil;
+import com.base.database.beans.Func;
+import com.base.database.beans.Sysuser;
+
+import com.opensymphony.xwork2.ActionContext;
+import com.opensymphony.xwork2.ActionInvocation;
+import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
+
+import org.apache.commons.lang.StringUtils;
+
+public class AuthorityInterceptor extends AbstractInterceptor 
+{
+	
+	private static final long serialVersionUID = 7630462273065576812L;
+
+
+	public String intercept(ActionInvocation invocation) throws Exception
+	{
+		/*
+		setGoingToURL(new HashMap(),invocation);
+		
+		ActionContext actionContext = invocation.getInvocationContext();
+		HttpServletRequest request= 
+			(HttpServletRequest)actionContext.get(StrutsStatics.HTTP_REQUEST);  
+		Map sessionMap = actionContext.getSession();
+		HttpServletResponse response = 
+			(HttpServletResponse)actionContext.get(StrutsStatics.HTTP_RESPONSE);  
+
+		if (sessionMap != null && 
+        		sessionMap.get(ConstIF.USER_LOGIN_KEY) != null)//如果已登陆，判断是否有操作此模块的权限
+		{
+        	Sysuser sysuser = (Sysuser)sessionMap.get(ConstIF.USER_LOGIN_KEY);
+        	//获得请求参数
+        	String qryParameter = request.getQueryString();
+        	int count = StringUtils.countMatches(qryParameter,"&");
+        	if (count >=1)
+    		{
+    			int indexof = qryParameter.indexOf("&");
+				if (qryParameter.indexOf("pager.offset")>0)//包括分页参数
+					qryParameter = "";
+				else
+					qryParameter = "?"+qryParameter.substring(0,indexof);
+    		}
+    		else
+    		{
+    			qryParameter = "";
+    		}
+        	StringBuffer requestPath = new StringBuffer();
+			requestPath.append(request.getServletPath()).append(qryParameter);
+			//获得用户可操作的按钮
+			List <Func> btnList = sysuser.getBtnList();
+			String funcsBtnScript = "";
+			List<Func> menuList = SystemUtil.getMenuList();
+			for(Func obj1 : menuList)
+			{
+				if (obj1.getFuncpath().equals(requestPath.toString()))
+				{
+					for(Func obj2 : btnList)
+					{
+						if (obj1.getId().equals(obj2.getParentid()))
+						{
+							funcsBtnScript += obj2.getFuncname()+",";
+						}
+					}	
+				}
+			}
+			sessionMap.put(ConstIF.USER_PRIVATES_BUTTON,funcsBtnScript);
+			//判断用户权限中是否包含用户的请求路径
+			Set<String> pathSet = sysuser.getFuncPathSet();
+			boolean power = false;
+			power = pathSet.contains(requestPath.toString());
+			if (power == false)
+			{
+				response.setCharacterEncoding("gb2312");
+				response.getWriter().write("您无此功能操作权限,请联系管理员!");
+				//response.getWriter().write("<script>window.history.back(-1);</script>");
+				return null; 
+			}
+			return invocation.invoke();
+        	 
+		}else//未登陆或者会话失效
+		{
+			response.setCharacterEncoding("gb2312");
+			//response.getWriter().write("您还没有登录，请登陆系统");
+			response.getWriter().write("<script>alert('您未登录或未操作系统时间过长,请重新登录系统!');</script>");
+			response.getWriter().write("<script>window.top.location='../login.jsp';</script>");
+			return null;      
+		}
+		*/
+		return invocation.invoke();
+	}
+	//暂未用,保存未登陆用户进入的页面
+	private void setGoingToURL(Map session, ActionInvocation invocation){    
+        String url = "";    
+        String namespace = invocation.getProxy().getNamespace();    
+        if (StringUtils.isNotBlank(namespace) && !namespace.equals("/")){    
+            url = url + namespace;    
+        }    
+        String actionName = invocation.getProxy().getActionName();    
+        if (StringUtils.isNotBlank(actionName)){    
+            url = url + "/" + actionName + ".action";    
+        }    
+        session.put(ConstIF.GOING_TO_URL_KEY, url);    
+    }    
+
+
+}

@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ccgj.database.mapper.DefineBiaodanMapper" >
+  <resultMap id="BaseResultMap" type="com.ccgj.database.beans.DefineBiaodan" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="mingchen" property="mingchen" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="createUser" property="createuser" jdbcType="INTEGER" />
+    <result column="createName" property="createname" jdbcType="VARCHAR" />
+    <result column="createDate" property="createdate" jdbcType="DATE" />
+    <result column="flowId" property="flowid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, mingchen, state, createUser, createName, createDate, flowId
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ccgj.database.beans.DefineBiaodanExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from define_biaodan
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from define_biaodan
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from define_biaodan
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ccgj.database.beans.DefineBiaodanExample" >
+    delete from define_biaodan
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ccgj.database.beans.DefineBiaodan" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into define_biaodan (mingchen, state, createUser, 
+      createName, createDate, flowId
+      )
+    values (#{mingchen,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, #{createuser,jdbcType=INTEGER}, 
+      #{createname,jdbcType=VARCHAR}, #{createdate,jdbcType=DATE}, #{flowid,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ccgj.database.beans.DefineBiaodan" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into define_biaodan
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="mingchen != null" >
+        mingchen,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="createuser != null" >
+        createUser,
+      </if>
+      <if test="createname != null" >
+        createName,
+      </if>
+      <if test="createdate != null" >
+        createDate,
+      </if>
+      <if test="flowid != null" >
+        flowId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="mingchen != null" >
+        #{mingchen,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="createuser != null" >
+        #{createuser,jdbcType=INTEGER},
+      </if>
+      <if test="createname != null" >
+        #{createname,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        #{createdate,jdbcType=DATE},
+      </if>
+      <if test="flowid != null" >
+        #{flowid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ccgj.database.beans.DefineBiaodanExample" resultType="java.lang.Integer" >
+    select count(*) from define_biaodan
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update define_biaodan
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.mingchen != null" >
+        mingchen = #{record.mingchen,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null" >
+        state = #{record.state,jdbcType=INTEGER},
+      </if>
+      <if test="record.createuser != null" >
+        createUser = #{record.createuser,jdbcType=INTEGER},
+      </if>
+      <if test="record.createname != null" >
+        createName = #{record.createname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdate != null" >
+        createDate = #{record.createdate,jdbcType=DATE},
+      </if>
+      <if test="record.flowid != null" >
+        flowId = #{record.flowid,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update define_biaodan
+    set id = #{record.id,jdbcType=INTEGER},
+      mingchen = #{record.mingchen,jdbcType=VARCHAR},
+      state = #{record.state,jdbcType=INTEGER},
+      createUser = #{record.createuser,jdbcType=INTEGER},
+      createName = #{record.createname,jdbcType=VARCHAR},
+      createDate = #{record.createdate,jdbcType=DATE},
+      flowId = #{record.flowid,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ccgj.database.beans.DefineBiaodan" >
+    update define_biaodan
+    <set >
+      <if test="mingchen != null" >
+        mingchen = #{mingchen,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="createuser != null" >
+        createUser = #{createuser,jdbcType=INTEGER},
+      </if>
+      <if test="createname != null" >
+        createName = #{createname,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        createDate = #{createdate,jdbcType=DATE},
+      </if>
+      <if test="flowid != null" >
+        flowId = #{flowid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ccgj.database.beans.DefineBiaodan" >
+    update define_biaodan
+    set mingchen = #{mingchen,jdbcType=VARCHAR},
+      state = #{state,jdbcType=INTEGER},
+      createUser = #{createuser,jdbcType=INTEGER},
+      createName = #{createname,jdbcType=VARCHAR},
+      createDate = #{createdate,jdbcType=DATE},
+      flowId = #{flowid,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

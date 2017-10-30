@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ccgj.database.custom.mapper.OfficialCustomMapper" >
+   
+   <select id="selectByNameAndDate"  resultType="com.ccgj.database.custom.beans.OfficialCustom">
+        select * from official where 1=1
+        <if test="name"> and filename like #{name,jdbcType=VARCHAR}</if>
+        <if test="startDate!=null and endDate!=null">
+              and createdate between #{startDate} and #{endDate}
+        </if>
+        <if test="startDate!=null and endDate==null">  and createdate &gt; #{startDate}</if>
+        <if test="startDate==null and endDate!=null">  and createdate &lt; #{endDate}</if>
+        <if test="state!=null and state>0"> and state= #{state}</if>
+    </select>
+    
+     <select id="selectByNameAndDateAndUserId"  resultType="com.ccgj.database.custom.beans.OfficialCustom">
+        select * from official,official_user where official.id=official_user.official_id and user_id=#{userId} and state=2
+        <if test="name"> and filename like #{name,jdbcType=VARCHAR}</if>
+        <if test="startDate!=null and endDate!=null">
+              and official.createdate between #{startDate} and #{endDate}
+        </if>
+        <if test="startDate!=null and endDate==null">  and official.createdate &gt; #{startDate}</if>
+        <if test="startDate==null and endDate!=null">  and official.createdate &lt; #{endDate}</if>
+      
+    </select>
+</mapper>

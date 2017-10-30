@@ -1,0 +1,110 @@
+/*////////////////////////////////////////// layout content //////////////////////////////////////////*/
+/* layout stype */
+#wrap{width:965px; margin:10px auto; text-align:left; height:645px;}
+/* header */
+#header{padding:0 15px; height:55px; background:url(<%=path%>/images/header_bg.gif) left top no-repeat #0187e8;}
+#header h1{width:480px; height:46px; font-size:0; line-height:0; float:left;}
+#header h1 a{display:block; width:480px; height:55px; font-size:0; line-height:0; background:url(<%=path%>/images/logo.gif) left top no-repeat; text-indent:-5000px;}
+#header p{float:right; margin-top:7px; border-left:1px solid #bbb; padding-left:5px; line-height:12px; height:18px;}
+#header p a{color:#e5f3fe;}
+
+/* footer */
+#footer{padding:8px 15px 2px 15px; color:#fff; height:24px; font-size:12px; background:url(<%=path%>/images/foot_bg.gif) top repeat-x;}
+#footer p{text-align:center; line-height:20px; padding-top:4px;}
+#footer p span{float:left;}
+/* left */
+.collapse{background:#eff5f6; border:1px solid #99bbe8; margin:0 3px; width:15px; height:500px; padding:5px 3px; float:left; display:inline; cursor:pointer;}
+.collapse:hover{background:#f5f9fa; border:1px solid #99bbe8;}
+.collapse a{width:15px; height:15px; display:block; line-height:0; font-size:0; background:url(<%=path%>/images/toggle.png) -4px -152px no-repeat;}
+.collapse a:hover{background:url(<%=path%>/images/toggle.png) -4px -202px no-repeat;}
+
+#left{width:198px; border:1px solid #99bbe8; border-bottom:0 none; margin:0 5px; overflow:hidden; float:left;}
+#left h2{color:#15428b; font-size:12px; background:url(<%=path%>/images/toggle.png) top repeat-x; border-bottom:1px solid #99bbe8; height:15px; line-height:15px; padding:5px 5px 5px 10px;}
+#left h2 a{float:right; width:15px; height:15px; display:block; line-height:0; font-size:0; background:url(<%=path%>/images/toggle.png) -4px -52px no-repeat;}
+#left h2 a:hover{background:url(<%=path%>/images/toggle.png) -4px -102px no-repeat;}
+
+#left ul {overflow:hidden; text-align:left; background:#fff;}
+#left ul li ul{border-bottom:1px solid #99bbe8;}
+#left ul li ul li ul{border-bottom:0 none;}
+#left ul li ul li ul li{height:21px; line-height:21px;}
+#left ul li{overflow:hidden; clear:both;}
+#left ul li .menu01{color:#15428b; font-size:12px; background:url(<%=path%>/images/accordion.png) top repeat-x; height:15px; line-height:15px; padding:5px; _float:left; cursor:pointer;}
+#left ul li .menu01:hover{background:url(<%=path%>/images/accordion.png) left -25px repeat-x;}
+#left ul li b.bg01{float:left; background:url(<%=path%>/images/accordion.png) left -156px no-repeat; padding-left:20px; color:#15428b; font-size:12px;}
+#left ul li a.a01{float:right; width:15px; height:15px; display:block; line-height:0; font-size:0; background:url(<%=path%>/images/accordion.png) -10px -55px no-repeat;}
+#left ul li a.a01:hover{background:url(<%=path%>/images/accordion.png) -10px -80px no-repeat;}
+#left ul li a.a02{float:right; width:15px; height:15px; display:block; line-height:0; font-size:0; background:url(<%=path%>/images/accordion.png) -10px -105px no-repeat;}
+#left ul li a.a02:hover{background:url(<%=path%>/images/accordion.png) -10px -130px no-repeat;}
+
+*+ html #left ul li b.bg01{float:none;background:url(<%=path%>/images/accordion.png) left -156px no-repeat; display:inline-block}
+*+ html #left ul li a.a01{margin-top:-15px;}
+*+ html #left ul li a.a02{margin-top:-15px;}
+
+
+#left .hover:hover{background:#f5f5f5;}
+#left .end_expandable{background:url(<%=path%>/images/tree.png) -1px -6px no-repeat; width:23px; height:9px; line-height:0; font-size:0; display:block; float:left; margin-top:5px; cursor:pointer;}
+#left .end_collapsable{background:url(<%=path%>/images/tree.png) -1px -206px no-repeat; width:23px; height:9px; line-height:0; font-size:0; display:block; float:left; margin-top:5px; cursor:pointer;}
+
+#left .folder_expandable{background:url(<%=path%>/images/folder.gif) -4px -3px no-repeat; width:20px; height:13px; line-height:0; font-size:0; display:block; float:left; margin-top:3px;}
+#left .folder_collapsable{background:url(<%=path%>/images/folder.gif) -3px -54px no-repeat;width:20px; height:13px; line-height:0; font-size:0; display:block; float:left; margin-top:3px;}
+
+#left .node{background:url(<%=path%>/images/tree.png) 20px -450px no-repeat;width:41px; height:20px; line-height:0; font-size:0; display:block; float:left;}
+#left .last .node{background:url(<%=path%>/images/tree.png) 20px -500px no-repeat;}
+#left .file{background:url(<%=path%>/images/folder.gif) 0 -103px no-repeat;width:22px; height:20px; line-height:0; font-size:0; display:block; float:left;}
+
+/* right */
+#right {margin:0; background:#fff;border:1px solid #99bbe8; position:relative; width:99%;height:auto;}
+.right_box { width:100%; overflow-x:hidden; overflow-y:auto;}
+#right .menu_div{position:relative; width:100%;}
+#right .menu_title{background:url(<%=path%>/images/bg_menu_title.gif) top repeat-x; overflow:hidden; height:26px; line-height:23px; padding:1px 5px 0 5px; color:#15428b; text-align:left;}
+#right .menu_title li{width:110px; float:left; background:url(<%=path%>/images/bg_menu_title.gif) left -28px no-repeat; margin-right:1px; text-align:left; padding:0 5px; overflow:hidden; position:relative; height:23px; cursor:pointer;}
+#right .menu_title li.over{background:url(<%=path%>/images/bg_menu_title.gif) left -52px no-repeat;}
+#right .menu_title li.on{background:url(<%=path%>/images/bg_menu_title.gif) left -76px no-repeat; font-weight: bold;}
+#right .menu_title li .close{width:11px; height:11px; display:block; line-height:0; font-size:0; background: url(<%=path%>/images/bg_menu_title.gif) left -100px no-repeat; z-index:10000; position: absolute; right:3px; top:5px;}
+#right .menu_title li .close:hover{background: url(<%=path%>/images/bg_menu_title.gif) -12px -100px no-repeat;}
+
+#right .menu_div .rig{width:17px; padding:0; position: absolute; top:1px; right:0;z-index:10000;}
+#right .menu_div .rig a.tab_more{width:17px; height:23px; display:block; line-height:0; font-size:0; background:url(<%=path%>/images/tabscontrol.png) left -180px no-repeat;}
+#right .menu_div .rig a.tab_more:hover{background:url(<%=path%>/images/tabscontrol.png) left -210px no-repeat;}
+#right .menu_div .rig .rig_box{position:absolute; width:175px; border:1px solid #88a0be; background:#fff; right:-1px; top:22px; padding:5px 0; z-index:100; }
+#right .menu_div .rig .rig_box li{clear:both; padding:0; margin:0; display:block; float:left; width:100%;}
+#right .menu_div .rig .rig_box a{border:1px solid #fff; background:#fff; display:block; margin:0 5px 1px 5px; padding:0 5px; text-align:left; color:#000;}
+#right .menu_div .rig .rig_box a:hover{border:1px solid #ececec; background:#f5f5f5; display:block;}
+#right .menu_div .rig .rig_box a.on{border:1px solid #dfe5ed; background:#e8edf3; font-weight:bold;}
+#right .menu_div .rig .rig_box a.on:hover{border:1px solid #dfe5ed; background:#e8edf3; font-weight:bold;}
+#right .menu_div .rig .rig_box a.bor{border-bottom:1px solid #ccc; margin:0 0 5px 0; padding-bottom:3px;}
+#right .menu_div .rig .rig_box a.bor:hover{border:1px solid #fff; border-bottom:1px solid #ccc; background:#fff; color:#b70000;}
+
+.page_bot{background:#ebf0f5; border-top:1px solid #99bbe8; height:25px; position:absolute; bottom:0; _bottom:-1px; left:0; clear:both; width:100%; float:left; margin-bottom:1px;}
+
+#right .box01{background:url(<%=path%>/images/bg_box01.gif) left bottom repeat-x; height:224px; clear:both; margin:5px; text-align:left;}
+#right .box01 .l_bg{background:url(<%=path%>/images/bg_box01.gif) left top no-repeat; width:6px; height:224px; line-height:0; font-size:0;}
+#right .box01 .r_bg{background:url(<%=path%>/images/bg_box01.gif) right top no-repeat; width:6px; height:224px; line-height:0; font-size:0;}
+#right .box01 h2.tit{color:#15428b; font-size:12px; padding:5px 0; height:18px; line-height:18px; clear:both;}
+
+#right .box01 .scroll{width:100%; height:190px; overflow-x:hidden; overflow-y:auto;}
+#right .box01 .scroll .box01_1{background:url(<%=path%>/images/bg_box02.gif) left -28px repeat-x; height:28px; clear:both; margin:5px; margin-bottom:0; text-align:left;}
+#right .box01 .scroll .box01_1 .l_bg01{background:url(<%=path%>/images/bg_box02.gif) left top no-repeat; width:5px; height:28px; line-height:0; font-size:0;}
+#right .box01 .scroll .box01_1 .r_bg01{background:url(<%=path%>/images/bg_box02.gif) right top no-repeat; width:5px; height:28px; line-height:0; font-size:0;}
+#right .box01 .scroll .box01_1 .menu li{cursor:pointer;display:block; float:left;height:28px;margin-right: 2px;}
+#right .box01 .scroll .box01_1 .menu li a{display:block; height:28px; background:url(<%=path%>/images/bg_box04.gif) right top no-repeat; padding-right:10px;}
+#right .box01 .scroll .box01_1 .menu li a span{background:url(<%=path%>/images/bg_box04.gif) left top no-repeat; display:inline-block; height:18px; line-height:18px; padding:5px 0 5px 10px;}
+#right .box01 .scroll .box01_1 .menu li a:hover{background:url(<%=path%>/images/bg_box04.gif) right -29px no-repeat;}
+#right .box01 .scroll .box01_1 .menu li a:hover span{background:url(<%=path%>/images/bg_box04.gif) left -29px no-repeat;}
+#right .box01 .scroll .box01_1 .menu li.selected a{background:url(<%=path%>/images/bg_box04.gif) right bottom no-repeat;}
+#right .box01 .scroll .box01_1 .menu li.selected a span{background:url(<%=path%>/images/bg_box04.gif) left bottom no-repeat; font-weight:bold;}
+
+#right .box01 .scroll .box01_2{background:#e4ebf6; clear:both; margin:0 5px; text-align:left; clear:both;}
+#right .box01 .scroll .box01_2 .c_bg02{vertical-align:top; padding-top:5px;}
+#right .box01 .scroll .box01_2 .l_bg02{background:url(<%=path%>/images/bg_box03.gif) left top repeat-y; width:5px; line-height:0; font-size:0;}
+#right .box01 .scroll .box01_2 .r_bg02{background:url(<%=path%>/images/bg_box03.gif) right top repeat-y; width:5px; line-height:0; font-size:0;}
+
+#right .box01 .scroll .box01_3{background:url(<%=path%>/images/bg_box02.gif) left -63px repeat-x; height:5px; clear:both; margin:0 5px 5px 5px; clear:both;}
+#right .box01 .scroll .box01_3 .l_bg03{background:url(<%=path%>/images/bg_box02.gif) left -57px no-repeat; width:5px; height:5px; line-height:0; font-size:0;}
+#right .box01 .scroll .box01_3 .r_bg03{background:url(<%=path%>/images/bg_box02.gif) right -57px no-repeat; width:5px; height:5px; line-height:0; font-size:0;}
+
+#right .box01 .table_style {margin:0; background:#fff; width:100%;}
+#right .box01 .table_style th{color:#000; line-height:19px; height:19px; padding:3px 0; font-size:12px; background: url(<%=path%>/images/tableth.png) top repeat-x; border-right:1px solid #d0d0d0;}
+#right .box01 .table_style td{color:#000; line-height:18px; text-align:center; padding:2px 0 2px 0; font-size:12px; border:1px solid #d0d0d0;}
+#right .box01 .table_style .bor_none td{border-bottom:0 none;}
+#right .box01 .table_style .al{text-align:left; padding-left:5px;}

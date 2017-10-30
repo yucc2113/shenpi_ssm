@@ -1,0 +1,59 @@
+.buttonSeek{
+	background-image: url(../images/btn/btn_05.gif);
+	width: 53px;
+	height: 22px;
+	border: 0px none;
+	color:#000000;
+	background-repeat: no-repeat;
+	background-color: transparent;
+}
+
+.buttonClear{
+	background-image: url(../images/btn/btn_04.gif);
+	width: 53px;
+	height: 22px;
+	border: 0px none;
+	color:#000000;
+	background-repeat: no-repeat;
+	background-color: transparent;
+}
+
+.buttonPrint{
+	background-image: url(../images/btn/btn_36.gif);
+	width: 53px;
+	height: 22px;
+	border: 0px none;
+	color:#000000;
+	background-repeat: no-repeat;
+	background-color: transparent;
+}
+
+.buttonReturn{
+	background-image: url(../images/btn/btn_09.gif);
+	width: 53px;
+	height: 22px;
+	border: 0px none;
+	color:#000000;
+	background-repeat: no-repeat;
+	background-color: transparent;
+}
+
+.buttonChoice{
+	background-image: url(../images/btn/btn_07.gif);
+	width: 53px;
+	height: 22px;
+	border: 0px none;
+	color:#000000;
+	background-repeat: no-repeat;
+	background-color: transparent;
+}
+
+.buttonExport{
+	background-image: url(../images/btn/btn_35.gif);
+	width: 53px;
+	height: 22px;
+	border: 0px none;
+	color:#000000;
+	background-repeat: no-repeat;
+	background-color: transparent;
+}

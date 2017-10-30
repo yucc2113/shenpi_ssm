@@ -1,0 +1,11 @@
+package com.base.common.util;
+
+public interface ConstIF
+{
+	public static final String USER_LOGIN_KEY="account_login_user";  
+	public static final String USER_PRIVATES_BUTTON="private_button";
+	public static final String USER_SESSION_KEY="account.session.user";    
+    public static final String COOKIE_REMEMBERME_KEY="account.cookie.rememberme";    
+    public static final String GOING_TO_URL_KEY="GOING_TO";    
+
+}

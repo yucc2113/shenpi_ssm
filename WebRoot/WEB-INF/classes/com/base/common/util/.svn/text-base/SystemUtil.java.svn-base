@@ -1,0 +1,512 @@
+package com.base.common.util;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.struts2.StrutsStatics;
+
+import com.base.database.beans.Dept;
+import com.base.database.beans.Dict;
+import com.base.database.beans.Func;
+import com.base.database.beans.Region;
+import com.base.database.beans.Roles;
+import com.base.database.beans.Sysuser;
+import com.base.database.factory.DatabaseFactory;
+import com.base.database.interfaces.DeptIF;
+import com.base.database.interfaces.DictIF;
+import com.base.database.interfaces.FuncIF;
+import com.base.database.interfaces.RegionIF;
+import com.base.database.interfaces.RolesIF;
+import com.base.database.interfaces.SysuserIF;
+import com.opensymphony.xwork2.ActionContext;
+
+public class SystemUtil {
+
+	private static DictIF dictIF = DatabaseFactory.getDictIF();
+	private static String roleIdName ;
+	private static List btnList = new ArrayList();
+	private static List menuList = new ArrayList();
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+	/**
+	 * 取外省行政区划
+	 * @param id
+	 * @return
+	 * @throws Exception
+	 */
+	public static  String getRegionTree(String id)throws Exception
+	{
+		StringBuffer treeBuf = new StringBuffer();
+		RegionIF regionIF = DatabaseFactory.getRegionIF();
+		Region region = new Region();
+		List<Region> treeList = regionIF.searchRegionOrder("id","asc",region,false,-1,-1);
+		if (treeList != null && treeList.size()>0)
+		{
+			for(Region bean : treeList)
+			{
+				if (bean.getParentId().intValue()==0)
+					treeBuf.append("tree.nodes['"+"x"+"_"+bean.getId()+"'] = 'text:"+
+							bean.getDeptName()+"("+bean.getRegion()+");data:id="+bean.getId()+"'\n");
+				else
+					treeBuf.append("tree.nodes['"+bean.getParentId()+"_"+bean.getId()+"'] = 'text:"+
+							bean.getDeptName()+"("+bean.getRegion()+");data:id="+bean.getId()+"'\n");
+			}
+		}	
+		//System.out.println(treeBuf.toString());
+		return treeBuf.toString();
+	}
+	
+	
+	/**
+	 * 生成部门树
+	 * @return
+	 * @throws Exception
+	 */
+	public static  String getDeptTree()throws Exception
+	{
+		StringBuffer treeBuf = new StringBuffer();
+		DeptIF deptIF = DatabaseFactory.getDeptIF();
+		List <Dept> treeList = deptIF.searchDeptOrder("orderid","asc",new Dept(),false,-1,-1);
+		treeBuf.append("<script type=\"text/javascript\">\n");
+		treeBuf.append("d = new dTree('d','../js/dtree/');\n"); 
+		treeBuf.append("d.add(0,-1,'选择部门');\n"); 
+		for(Dept dept : treeList)
+		{
+			treeBuf.append("d.add("+dept.getId()+","+dept.getParentid()+
+					","+"'"+dept.getDeptname()+"("+dept.getRegion()+")',"+"\""+"javaScript:onClickTreeNode("+
+						dept.getId()+",'"+dept.getDeptname()+"',"+dept.getRegion()+")"+"\");\n"); 
+		}
+		treeBuf.append("document.write(d);\n");
+		treeBuf.append("</script>");
+		//System.out.println(treeBuf.toString());
+		return treeBuf.toString();
+	}
+	/**
+	 * 生成所有栏目树
+	 * @return
+	 * @throws Exception
+	 */
+	public static  String getFuncTree()throws Exception
+	{
+		StringBuffer treeBuf = new StringBuffer();
+		FuncIF funcIF = DatabaseFactory.getFuncIF();
+		Func funcbean = funcIF.createFunc();
+		//funcbean.setIsenable("yes");
+		List <Func> treeList = funcIF.searchFuncOrder("orderid","asc",funcbean,false,-1,-1);
+		treeBuf.append("<script type=\"text/javascript\">\n");
+		treeBuf.append("d = new dTree('d','../js/dtree/');\n"); 
+		treeBuf.append("d.add(0,-1,'选择栏目');\n"); 
+		for(Func func : treeList)
+		{
+			treeBuf.append("d.add("+func.getId()+","+func.getParentid()+
+					",'"+func.getFuncname()+"','"+"./searchFunc.action?id="+func.getId()+"','"+func.getFuncname()+"','aRFrame'"+");\n"); 
+		}
+		treeBuf.append("document.write(d);\n");
+		treeBuf.append("</script>");
+		
+		return treeBuf.toString();
+	}
+	/**
+	 * 权限管理-右侧初始化栏目树
+	 * @return
+	 * @throws Exception
+	 */
+	public static  String getPriFuncTree()throws Exception
+	{
+		StringBuffer treeBuf = new StringBuffer();
+		FuncIF funcIF = DatabaseFactory.getFuncIF();
+		Func funcbean = funcIF.createFunc();
+		funcbean.setIsenable("yes");
+		//List <Func> treeList = funcIF.searchFuncOrder("orderid","asc",funcbean,false,-1,-1);
+		List <Func> treeList = funcIF.getFuncService().getFuncManager().searchControlFunc(funcbean);
+		
+		treeBuf.append("<script type=\"text/javascript\">\n");
+		treeBuf.append("d = new dTree('d','../js/dtree/');\n"); 
+		treeBuf.append("d.add(0,-1,'选择栏目');\n"); 
+		
+		for(Func func : treeList)
+		{
+			if(func.getId()==44 || func.getParentid()==44)//从树中移除栏目管理
+				continue;
+			treeBuf.append("d.add("+func.getId()+","+func.getParentid()+
+					",'"+func.getFuncname()+"');\n"); 
+		}
+		treeBuf.append("document.write(d);\n");
+		treeBuf.append("</script>");
+		return treeBuf.toString();
+	}
+	/**
+	 * 生成用户(操作人员)及所属部门树
+	 * @return
+	 * @throws Exception
+	 */
+	public static  String getDeptSysuserTree()throws Exception
+	{
+		StringBuffer treeBuf = new StringBuffer();
+		DeptIF deptIF = DatabaseFactory.getDeptIF();
+		SysuserIF sysuserIF = DatabaseFactory.getSysuserIF();
+		
+		List <Dept> deptList = deptIF.searchDeptOrder("region,orderid","asc",new Dept(),false,-1,-1);
+		Sysuser searchbean = sysuserIF.createSysuser();
+		searchbean.setUsertype("operator");
+		searchbean.setIsenable("yes");
+		List <Sysuser>  sysuserList = sysuserIF.searchSysuserOrder("belongpart","asc", 
+				searchbean, false, -1,-1);
+		
+		treeBuf.append("<script type=\"text/javascript\">\n");
+		treeBuf.append("d = new dTree('d','../js/dtree/');\n"); 
+		treeBuf.append("d.add(0,-1,'选择人员');\n"); 
+		for(Dept dept : deptList)
+		{
+			Long deptid = dept.getId();
+			boolean isInsert = true;
+			for(Sysuser sysuser : sysuserList)
+			{
+				if(deptid.equals(sysuser.getBelongpart()))
+				{
+					if (isInsert)
+					{
+						treeBuf.append("d.add("+deptid+",0,'"+
+							dept.getDeptname()+"'"+");\n"); 
+						isInsert = false;
+					}
+					treeBuf.append("d.add("+sysuser.getId()*10000+
+							","+sysuser.getBelongpart()+",'"+sysuser.getUsername()+"','./searchUserRelFun.action?id="+sysuser.getId()+"','"+sysuser.getUsername()+"','aRFrame'"+");\n");
+				}	
+			}
+		}
+		treeBuf.append("document.write(d);\n");
+		treeBuf.append("</script>");
+		//System.out.println(treeBuf.toString());
+		return treeBuf.toString();
+	}
+	
+	/**
+	 * 生成用户所拥有的功能树
+	 * @param groupIds
+	 * @param personIds
+	 * @return
+	 * @throws Exception
+	 */
+	public static  String getUserFuncCheckTree(Long [] groupFuncIds,Long [] userFuncIds,String formName)throws Exception
+	{
+		StringBuffer treeBuf = new StringBuffer();
+		FuncIF funcIF = DatabaseFactory.getFuncIF();
+		Func func = funcIF.createFunc();
+		func.setIsenable("yes");
+		//List <Func> funcList = funcIF.searchFuncOrder("orderid","asc",func,false,-1,-1);
+		List <Func> funcList = funcIF.getFuncService().getFuncManager().searchControlFunc(func);
+		
+		treeBuf.append("<script type=\"text/javascript\">\n");
+		treeBuf.append("d = new dTree('d','../js/dtree/','"+formName+"');\n"); 
+		treeBuf.append("d.add(0,-1,'栏目列表');\n"); 
+		
+		if(funcList!=null && funcList.size()>0)
+		{
+			for(int i=0;i<funcList.size();i++)
+			{ 
+				func = funcList.get(i);
+				//从树中移除栏目管理
+				if(func.getId()==44 || func.getParentid()==44)
+					continue;
+				
+				int condition = 1;
+				//读取人员拥有功能
+				if(userFuncIds!=null && userFuncIds.length>0)
+				{
+					for(int k=0;k<userFuncIds.length;k++)
+					{
+						if(userFuncIds[k]-func.getId()==0)//人员拥有功能,则设置checkbox为选择状态
+						{
+							condition=2;
+						}
+					}
+				}
+				//读取人员所在组拥有功能
+				if(groupFuncIds!=null&&groupFuncIds.length>0)
+				{
+					for(int j=0;j<groupFuncIds.length;j++)
+					{
+						if(groupFuncIds[j]-func.getId()==0)
+						{
+							condition=2;
+						}
+					}
+				}
+				treeBuf.append("d.add('" + func.getId()+ "','" + func.getParentid() + "','" + func.getFuncname() +
+						"','','" + condition + "','aRFrame');\n");
+			}
+		}
+		treeBuf.append("document.write(d);\n");
+		treeBuf.append("</script>");
+		
+		return treeBuf.toString();
+	}
+	/**
+	 * 生成角色树
+	 * @return
+	 * @throws Exception
+	 */
+	@SuppressWarnings("unchecked")
+	public static  String getRolesTree()throws Exception
+	{
+		StringBuffer treeBuf = new StringBuffer();
+		RolesIF rolesIF = DatabaseFactory.getRolesIF();
+		List <Roles> treeList = rolesIF.searchRolesOrder("orderid","asc",new Roles(),false,-1,-1);
+		treeBuf.append("<script type=\"text/javascript\">\n");
+		//treeBuf.append("d = new dTree('d','../js/dtree/','"++"');\n"); 
+		treeBuf.append("d = new dTree('d','../js/dtree/'"+");\n"); 
+		treeBuf.append("d.add(0,-1,'选择角色');\n"); 
+		for(Roles roles : treeList)
+		{
+			treeBuf.append("d.add("+roles.getId()+",0,"
+					//+"'"+roles.getRolename()+"','"+"./searchRoles.action?id="+roles.getId()+
+					//	"','"+roles.getRoleinfo()+"','aRFrame');\n");
+					+"'"+roles.getRolename()+"',"+"\""+"javaScript:onClickTreeNode('./searchRoles.action?id="+roles.getId()+"','"+roles.getId()+"')\""
+					+");\n");
+					
+		}
+		treeBuf.append("document.write(d);\n");
+		treeBuf.append("</script>");
+		
+		return treeBuf.toString();
+	}
+	/**
+	 * 生成角色树
+	 * @return
+	 * @throws Exception
+	 */
+	public static  String getRolesCheckTree(String ids)throws Exception
+	{
+		
+		StringBuffer treeBuf = new StringBuffer();
+		RolesIF rolesIF = DatabaseFactory.getRolesIF();
+		List <Roles> treeList = rolesIF.searchRolesOrder("orderid","asc",new Roles(),false,-1,-1);
+		treeBuf.append("<script type=\"text/javascript\">\n");
+		treeBuf.append("d = new dTree('d','../js/dtree/'"+");\n"); 
+		//treeBuf.append("d.config.useIcons = false;\n");
+		treeBuf.append("d.add(0,-1,'选择角色');\n");
+		String tmp = "";
+		
+		String [] idArr = null;
+		if(ids!=null && ids.length()>0)
+		{
+			idArr =ids.split(","); 
+		}
+		for(Roles roles : treeList)
+		{
+			int condition = 1;
+			if(idArr!=null)
+			{ 
+				for(int j=0;j<idArr.length;j++)
+				{
+					if(Long.parseLong(idArr[j]) == roles.getId())
+					{
+						condition = 2;
+					}
+				}
+			}
+			treeBuf.append("d.add("+roles.getId()+",0,"
+					+"'"+roles.getRolename()+"','','" + condition + "','aRFrame');\n");
+			tmp  += roles.getId()+","+roles.getRolename()+",";
+		}
+		//tmp = tmp.substring(0, tmp.lastIndexOf(","));
+		setRoleIdName(tmp);
+		treeBuf.append("document.write(d);\n");
+		treeBuf.append("</script>");
+		return treeBuf.toString();
+	}
+	/**
+	 * 生成角色树
+	 * @return
+	 * @throws Exception
+	 */
+	public static  String getRolesCheckTree()throws Exception
+	{
+		
+		StringBuffer treeBuf = new StringBuffer();
+		RolesIF rolesIF = DatabaseFactory.getRolesIF();
+		List <Roles> treeList = rolesIF.searchRolesOrder("orderid","asc",new Roles(),false,-1,-1);
+		treeBuf.append("<script type=\"text/javascript\">\n");
+		treeBuf.append("d = new dTree('d','../js/dtree/'"+");\n"); 
+		//treeBuf.append("d.config.useIcons = false;\n");
+		treeBuf.append("d.add(0,-1,'选择角色');\n");
+		String tmp = "";
+		for(Roles roles : treeList)
+		{
+			treeBuf.append("d.add("+roles.getId()+",0,"
+					+"'"+roles.getRolename()+"'"+");\n");
+			tmp  += roles.getId()+","+roles.getRolename()+",";
+		}
+		//tmp = tmp.substring(0, tmp.lastIndexOf(","));
+		setRoleIdName(tmp);
+		treeBuf.append("document.write(d);\n");
+		treeBuf.append("</script>");
+		return treeBuf.toString();
+	}
+	/**
+	 * 查看用户明细-查询角色对应的栏目集合
+	 * @param groupFuncIds
+	 * @return
+	 * @throws Exception
+	 */
+	public static  String getUserFuncCheckTree(Long [] groupFuncIds)throws Exception
+	{
+		StringBuffer treeBuf = new StringBuffer();
+		FuncIF funcIF = DatabaseFactory.getFuncIF();
+		Func func = funcIF.createFunc();
+		
+		func.setIsenable("yes");
+		List <Func> funcList = funcIF.getFuncService().getFuncManager().searchControlFunc(func);
+		//List <Func> funcList = funcIF.searchFuncOrder("orderid","asc",func,false,-1,-1);
+
+		treeBuf.append("<script type=\"text/javascript\">\n");
+		treeBuf.append("d = new dTree('d','../js/dtree/'"+");\n"); 
+		treeBuf.append("d.add(0,-1,'角色操作栏目列表');\n"); 
+		
+		if(funcList!=null && funcList.size()>0)
+		{
+			for(int i=0;i<funcList.size();i++)
+			{ 
+				func = funcList.get(i);
+				if(func.getId()==44 || func.getParentid()==44)//从树中移除栏目管理
+					continue;
+				int condition = 1;
+				//读取人员所在组拥有功能
+				if(groupFuncIds!=null&&groupFuncIds.length>0)
+				{
+					for(int j=0;j<groupFuncIds.length;j++)
+					{
+						if(groupFuncIds[j]-func.getId()==0)
+						{
+							condition=3;
+						}
+					}
+				}
+				treeBuf.append("d.add('" + func.getId()+ "','" + func.getParentid() + "','" + func.getFuncname() +
+						"','','" + condition + "','aRFrame');\n");
+			}
+		}
+		treeBuf.append("document.write(d);\n");
+		treeBuf.append("</script>");
+		return treeBuf.toString();
+	}
+	/**
+	 * 
+	 * @param funcIds
+	 * @return
+	 * @throws Exception
+	 */
+	public static  String getUserFuncTree(Set funcIds)throws Exception
+	{
+		StringBuffer treeBuf = new StringBuffer();
+		FuncIF funcIF = DatabaseFactory.getFuncIF();
+		Func func = funcIF.createFunc();
+		func.setIsenable("yes");
+		List <Func> funcMenuList = new ArrayList<Func>();
+		List <Func> funcBtnList = new ArrayList<Func>();
+		funcIF.getFuncService().getFuncManager().
+			searchFuncs(func,funcIds.toArray(),funcMenuList,funcBtnList);
+		setBtnList(funcBtnList);
+		setMenuList(funcMenuList);
+		treeBuf.append("<script type=\"text/javascript\">\n");
+		treeBuf.append("d = new dTree('d','./js/dtree/'"+");\n"); 
+		treeBuf.append("d.add(0,-1,'功能列表');\n"); 
+		
+		if(funcMenuList!=null && funcMenuList.size()>0)
+		{
+			for(int i=0;i<funcMenuList.size();i++)
+			{ 
+				func = funcMenuList.get(i);
+				String funcPath = func.getFuncpath();
+				funcPath = funcPath.substring(1);
+				treeBuf.append("d.add('" + func.getId()+ "','" + func.getParentid() + "','" + func.getFuncname() +
+						"','"+funcPath+"','',"+"'rightFrame');\n");
+			}
+		}
+		treeBuf.append("document.write(d);\n");
+		treeBuf.append("</script>");
+		//System.out.println(treeBuf.toString());
+		return treeBuf.toString();
+	}
+	public static String getRoleIdName() {
+		return roleIdName;
+	}
+	public static void setRoleIdName(String roleIdName) {
+		SystemUtil.roleIdName = roleIdName;
+	}
+	public static List getBtnList() {
+		return btnList;
+	}
+	public static void setBtnList(List btnList) {
+		SystemUtil.btnList = btnList;
+	}
+	public static List getMenuList() {
+		return menuList;
+	}
+	public static void setMenuList(List menuList) {
+		SystemUtil.menuList = menuList;
+	}
+	
+	public static int getTopHeight(HttpServletRequest request,int top,int num,int w){
+		int height=0;
+		try {
+			Sysuser userBean  = (Sysuser)request.getSession(true).getAttribute(ConstIF.USER_LOGIN_KEY);
+			userBean.setHeight(960);
+			if(num==0){
+				height = userBean.getHeight()-top;
+			}else{
+				num = num-1;
+				num=num/2+num%2;
+				if(num==0){
+					height = userBean.getHeight()-263;
+				}
+				if(num==1){
+					height = userBean.getHeight()-372;
+				}
+				if(num==2){
+					height = userBean.getHeight()-522;
+				}
+				if(num==3){
+					height = userBean.getHeight()-672;
+				}
+				if(num==4){
+					height = userBean.getHeight()-823;
+				}
+			}
+		} catch (Exception e) {
+		}
+		return height;
+	}
+	/**
+	 * 通过性别代码取名称
+	 * @param code
+	 */
+	public static String getSexByCode(String code)
+	{
+		String sexName = "";
+		try{
+			Dict searchbean = dictIF.createDict(); 
+			searchbean.setCode(code);
+			List<Dict> list = dictIF.searchDict(searchbean);
+			if (!list.isEmpty())
+				sexName = list.get(0).getName();
+			
+		}catch(Exception ex)
+		{
+			System.out.println("SystemUtil:getSexByCode:ExceptionMsg:"+ex.getMessage());
+			sexName = "";
+		}
+		return sexName;
+	}
+
+}

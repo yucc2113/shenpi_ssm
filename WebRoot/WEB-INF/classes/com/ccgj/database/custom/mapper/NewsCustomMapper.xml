@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ccgj.database.custom.mapper.NewsCustomMapper" >
+   
+   <select id="selectByTitleAndDate"  resultType="com.ccgj.database.beans.News">
+        select * from news where 1=1
+        <if test="title!=null"> and title like #{title,jdbcType=VARCHAR}</if>
+        <if test="startDate!=null and endDate!=null">
+              and createDate between #{startDate} and #{endDate}
+        </if>
+        <if test="startDate!=null and endDate==null">  and createDate &gt; #{startDate}</if>
+        <if test="startDate==null and endDate!=null">  and createDate &lt; #{endDate}</if>
+        <if test="state!=null and state>0"> and state= #{state}</if>
+    </select>
+    
+     
+ 
+</mapper>

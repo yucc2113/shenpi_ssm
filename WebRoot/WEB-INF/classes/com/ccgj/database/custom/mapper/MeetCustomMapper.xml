@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ccgj.database.custom.mapper.MeetCustomMapper" >
+   
+   <select id="selectByNameAndDate"  resultType="com.ccgj.database.beans.Meet">
+        select id,name,didian,createuser,meet_date as meetDate,flag,createname ,oldfilename , newfilename from meet where 1=1
+        <if test="name"> and name like #{name,jdbcType=VARCHAR}</if>
+        <if test="startDate!=null and endDate!=null">
+              and meet_date between #{startDate} and #{endDate}
+        </if>
+        <if test="startDate!=null and endDate==null">  and meet_date &gt; #{startDate}</if>
+        <if test="startDate==null and endDate!=null">  and meet_date &lt; #{endDate}</if>
+        
+    </select>
+    
+     <select id="selectByNameAndDateAndUserId"  resultType="com.ccgj.database.beans.Meet">
+        select meet.id,name,didian,createuser,meet_date as meetDate,meet.flag,createname ,oldfilename , newfilename from meet,meet_user where meet.id=meet_user.meet_id
+        and user_id=#{userId}
+        <if test="name"> and name like #{name,jdbcType=VARCHAR}</if>
+        <if test="startDate!=null and endDate!=null">
+              and meet_date between #{startDate} and #{endDate}
+        </if>
+        <if test="startDate!=null and endDate==null">  and meet_date &gt; #{startDate}</if>
+        <if test="startDate==null and endDate!=null">  and meet_date &lt; #{endDate}</if>
+        
+    </select>
+</mapper>

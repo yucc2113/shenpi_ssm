@@ -1,0 +1,49 @@
+/* Ext 2.0.2 */
+.x-window-footer {position: relative;top: 0;right: 0;}
+.x-tab-strip SPAN.x-tab-strip-text  {font-size: 12px;}
+.x-panel-header {font-size: 12px;}
+.x-tree-node {font-size: 12px;}
+.x-grid3-hd-row TD {font-size: 12px;}
+.x-grid3-row TD {font-size: 12px;LINE-HEIGHT: 18px;}
+.x-tip .x-tip-bd {font-size: 12px;}
+.x-tip h3{font-size: 12px;}
+.x-tip .x-tip-bd-inner{font-size:12px;}
+.x-tip .x-tip-body {font-size:12px;}
+.x-panel-tl .x-panel-header {font: normal 12px tahoma,arial,verdana,sans-serif;}
+.x-form-field {font: 12px tahoma,arial,helvetica,sans-serif}
+.x-small-editor .x-form-field {font: 12px tahoma,arial,helvetica,sans-serif}
+.x-combo-list-item {font: 12px tahoma,arial,helvetica,sans-serif;}	
+.x-menu-list-item {font: 12px tahoma,arial,sans-serif;}
+.x-window-tl .x-window-header{font-size:12px;}
+.x-progress-text{font-size:12px;}
+/* the textField missing bottom line */
+.x-form-item {font: 12px tahoma,arial,helvetica,sans-serif}
+.x-grid-group-hd DIV {font: bold 12px tahoma,arial,helvetica,sans-serif;}
+.x-fieldset legend {font-size:12px;}
+.x-btn-text{font: 12px tahoma,arial,sans-serif;}
+.x-btn button{font-size:12px;}
+.x-toolbar td, .x-toolbar span, .x-toolbar input, 
+.x-toolbar div, .x-toolbar select, .x-toolbar label {font-size:12px;}
+.controlBtn img {cursor: pointer;}
+.x-fieldset legend {font-size:12px;}
+.x-tree-node a, .x-dd-drag-ghost a{text-decoration:none;color:black;-moz-user-select:none;-khtml-user-select:none;-webkit-user-select:ignore;-kthml-user-focus:normal;-moz-user-focus:normal;-moz-outline: 0 none;outline:0 none;}
+.x-tree-node div.x-tree-drag-insert-below{  border-bottom:1px dotted #3366cc;}
+.x-tree-node div.x-tree-drag-insert-above{ border-top:1px dotted #3366cc;}
+.x-tree-dd-underline .x-tree-node div.x-tree-drag-insert-below a{  border-bottom:2px solid #3366cc;}
+.x-tree-dd-underline .x-tree-node div.x-tree-drag-insert-above a{ border-top:2px solid #3366cc;}
+.x-tree-node .x-tree-drag-append a span{ background:#dddddd; border:1px dotted gray;}
+.x-tree-root-ct {zoom:1;}
+.x-grid3-header-offset{padding-left:1px;width:auto;}
+.ext-ie .x-form-text {margin-top:0px;margin-bottom:0px;height:22px;line-height:18px;}
+.x-form-file {margin-top:-1px;margin-bottom:-1px;height:22px;line-height:18px;vertical-align:middle;}
+.ext-ie .x-small-editor .x-form-text{margin-top:1px!important;margin-bottom:-1px!important;height:20px!important;line-height:16px!important;vertical-align:middle;}
+.x-form-field-wrap .x-form-trigger{width:17px;height:21px;top:0px;*top:1px;}
+.x-small-editor .x-form-field-wrap .x-form-trigger{height:19px;}
+.x-form-item{font:normal 12px tahoma,arial,helvetica,sans-serif;display:block;margin-bottom:4px;margin-bottom:2px\9;}
+
+
+.x-date-middle,.x-date-left,.x-date-right{background:url(../images/default/shared/hd-sprite.gif) repeat-x 0 -83px;color:#FFF;font:bold 12px "sans serif",tahoma,verdana,helvetica;overflow:hidden;}
+.x-date-inner a{padding:2px 5px;display:block;font:normal 12px arial,helvetica,tahoma,sans-serif;text-decoration:none;color:black;text-align:right;zoom:1;}
+.x-date-mp td{padding:2px;font:normal 12px arial,helvetica,tahoma,sans-serif;}
+.x-date-mp-btns button{text-decoration:none;text-align:center;text-decoration:none!important;background:#083772;color:white;border:1px solid;border-color:#36c #005 #005 #36c;padding:1px 3px 1px;font:normal 12px arial,helvetica,tahoma,sans-serif;cursor:pointer;}
+/* END */

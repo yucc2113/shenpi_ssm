@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ccgj.database.custom.mapper.SystemlogCustomMapper" >
+   
+   <select id="selectByNameAndDate"  resultType="com.ccgj.database.beans.Systemlog">
+        select * from systemlog where 1=1
+        <if test="name!=null"> and creatUserName like #{name,jdbcType=VARCHAR}</if>
+        <if test="startDate!=null and endDate!=null">
+              and creatDate between #{startDate} and #{endDate}
+        </if>
+        <if test="startDate!=null and endDate==null">  and creatDate &gt; #{startDate}</if>
+        <if test="startDate==null and endDate!=null">  and creatDate &lt; #{endDate}</if>
+        
+    </select>
+</mapper>

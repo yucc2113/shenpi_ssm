@@ -1,0 +1,62 @@
+package com.base.common.struts;
+
+import java.io.Serializable;
+
+public class CommonPage implements Serializable {
+	static final long serialVersionUID = 1000000000000000003L;
+	
+	private Integer offset = new Integer(0);
+	private Integer maxPageItems = new Integer(15);//ÿҳ�ļ�¼��
+	private Integer maxIndexPages = new Integer(5);//����ҳ����Ŀ
+	private Integer items = new Integer(0) ;//������
+
+
+	/**
+	 * @return Returns the items.
+	 */
+	public Integer getItems() {
+		return items;
+	}
+	/**
+	 * @param items The items to set.
+	 */
+	public void setItems(Integer items) {
+		this.items = items;
+	}
+	/**
+	 * @return Returns the maxIndexPages.
+	 */
+	public Integer getMaxIndexPages() {
+		return maxIndexPages;
+	}
+	/**
+	 * @param maxIndexPages The maxIndexPages to set.
+	 */
+	public void setMaxIndexPages(Integer maxIndexPages) {
+		this.maxIndexPages = maxIndexPages;
+	}
+	/**
+	 * @return Returns the maxPageItems.
+	 */
+	public Integer getMaxPageItems() {
+		return maxPageItems;
+	}
+	/**
+	 * @param maxPageItems The maxPageItems to set.
+	 */
+	public void setMaxPageItems(Integer maxPageItems) {
+		this.maxPageItems = maxPageItems;
+	}
+	/**
+	 * @return Returns the offset.
+	 */
+	public Integer getOffset() {
+		return offset;
+	}
+	/**
+	 * @param offset The offset to set.
+	 */
+	public void setOffset(Integer offset) {
+		this.offset = offset;
+	}
+}

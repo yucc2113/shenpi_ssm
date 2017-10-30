@@ -1,0 +1,13 @@
+<meta http-equiv="Content-Type" content="text/html; charset=GBK" />
+<link type="text/css" rel="stylesheet" href="skin/simple/ymPrompt.css"></link>
+<script type="text/javascript" src="ymPrompt_source.js"></script>
+
+<script type="text/javascript">
+ymPrompt.alert({title:'信息提示',message:'用户名或密码错误！',width:250,height:160});
+ymPrompt.confirmInfo({title:'信息确认',message:'确认要删除吗？',handler: function(tp){
+			if(tp=='ok'){
+				return true;
+			}else{
+				return false;
+			}},width:250,height:160});
+</script>

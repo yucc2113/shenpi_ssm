@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ccgj.database.mapper.NewsMapper" >
+  <resultMap id="BaseResultMap" type="com.ccgj.database.beans.News" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="createUser" property="createuser" jdbcType="INTEGER" />
+    <result column="createDate" property="createdate" jdbcType="TIMESTAMP" />
+    <result column="leixing" property="leixing" jdbcType="INTEGER" />
+    <result column="flowId" property="flowid" jdbcType="INTEGER" />
+    <result column="createName" property="createname" jdbcType="VARCHAR" />
+    <result column="approveuser" property="approveuser" jdbcType="INTEGER" />
+    <result column="approvedate" property="approvedate" jdbcType="TIMESTAMP" />
+    <result column="approveidea" property="approveidea" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, title, content, createUser, createDate, leixing, flowId, createName, approveuser, 
+    approvedate, approveidea, state
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ccgj.database.beans.NewsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from news
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from news
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from news
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ccgj.database.beans.NewsExample" >
+    delete from news
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ccgj.database.beans.News" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into news (title, content, createUser, 
+      createDate, leixing, flowId, 
+      createName, approveuser, approvedate, 
+      approveidea, state)
+    values (#{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{createuser,jdbcType=INTEGER}, 
+      #{createdate,jdbcType=TIMESTAMP}, #{leixing,jdbcType=INTEGER}, #{flowid,jdbcType=INTEGER}, 
+      #{createname,jdbcType=VARCHAR}, #{approveuser,jdbcType=INTEGER}, #{approvedate,jdbcType=TIMESTAMP}, 
+      #{approveidea,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ccgj.database.beans.News" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into news
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="createuser != null" >
+        createUser,
+      </if>
+      <if test="createdate != null" >
+        createDate,
+      </if>
+      <if test="leixing != null" >
+        leixing,
+      </if>
+      <if test="flowid != null" >
+        flowId,
+      </if>
+      <if test="createname != null" >
+        createName,
+      </if>
+      <if test="approveuser != null" >
+        approveuser,
+      </if>
+      <if test="approvedate != null" >
+        approvedate,
+      </if>
+      <if test="approveidea != null" >
+        approveidea,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="createuser != null" >
+        #{createuser,jdbcType=INTEGER},
+      </if>
+      <if test="createdate != null" >
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="leixing != null" >
+        #{leixing,jdbcType=INTEGER},
+      </if>
+      <if test="flowid != null" >
+        #{flowid,jdbcType=INTEGER},
+      </if>
+      <if test="createname != null" >
+        #{createname,jdbcType=VARCHAR},
+      </if>
+      <if test="approveuser != null" >
+        #{approveuser,jdbcType=INTEGER},
+      </if>
+      <if test="approvedate != null" >
+        #{approvedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="approveidea != null" >
+        #{approveidea,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ccgj.database.beans.NewsExample" resultType="java.lang.Integer" >
+    select count(*) from news
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update news
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.content != null" >
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createuser != null" >
+        createUser = #{record.createuser,jdbcType=INTEGER},
+      </if>
+      <if test="record.createdate != null" >
+        createDate = #{record.createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.leixing != null" >
+        leixing = #{record.leixing,jdbcType=INTEGER},
+      </if>
+      <if test="record.flowid != null" >
+        flowId = #{record.flowid,jdbcType=INTEGER},
+      </if>
+      <if test="record.createname != null" >
+        createName = #{record.createname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.approveuser != null" >
+        approveuser = #{record.approveuser,jdbcType=INTEGER},
+      </if>
+      <if test="record.approvedate != null" >
+        approvedate = #{record.approvedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.approveidea != null" >
+        approveidea = #{record.approveidea,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null" >
+        state = #{record.state,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update news
+    set id = #{record.id,jdbcType=INTEGER},
+      title = #{record.title,jdbcType=VARCHAR},
+      content = #{record.content,jdbcType=VARCHAR},
+      createUser = #{record.createuser,jdbcType=INTEGER},
+      createDate = #{record.createdate,jdbcType=TIMESTAMP},
+      leixing = #{record.leixing,jdbcType=INTEGER},
+      flowId = #{record.flowid,jdbcType=INTEGER},
+      createName = #{record.createname,jdbcType=VARCHAR},
+      approveuser = #{record.approveuser,jdbcType=INTEGER},
+      approvedate = #{record.approvedate,jdbcType=TIMESTAMP},
+      approveidea = #{record.approveidea,jdbcType=VARCHAR},
+      state = #{record.state,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ccgj.database.beans.News" >
+    update news
+    <set >
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="createuser != null" >
+        createUser = #{createuser,jdbcType=INTEGER},
+      </if>
+      <if test="createdate != null" >
+        createDate = #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="leixing != null" >
+        leixing = #{leixing,jdbcType=INTEGER},
+      </if>
+      <if test="flowid != null" >
+        flowId = #{flowid,jdbcType=INTEGER},
+      </if>
+      <if test="createname != null" >
+        createName = #{createname,jdbcType=VARCHAR},
+      </if>
+      <if test="approveuser != null" >
+        approveuser = #{approveuser,jdbcType=INTEGER},
+      </if>
+      <if test="approvedate != null" >
+        approvedate = #{approvedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="approveidea != null" >
+        approveidea = #{approveidea,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ccgj.database.beans.News" >
+    update news
+    set title = #{title,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      createUser = #{createuser,jdbcType=INTEGER},
+      createDate = #{createdate,jdbcType=TIMESTAMP},
+      leixing = #{leixing,jdbcType=INTEGER},
+      flowId = #{flowid,jdbcType=INTEGER},
+      createName = #{createname,jdbcType=VARCHAR},
+      approveuser = #{approveuser,jdbcType=INTEGER},
+      approvedate = #{approvedate,jdbcType=TIMESTAMP},
+      approveidea = #{approveidea,jdbcType=VARCHAR},
+      state = #{state,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
